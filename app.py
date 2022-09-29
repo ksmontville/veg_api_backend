@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['JSON_SORT_KEYS'] = True
 
@@ -125,13 +124,4 @@ class VegetableSchema(ma.SQLAlchemySchema):
 
 
 vegetable_schema = VegetableSchema()
-
-# Write all models to the table
-with app.app_context():
-    db.create_all()
-
-
-if __name__ == '__main__':
-    app.run()
-
 
