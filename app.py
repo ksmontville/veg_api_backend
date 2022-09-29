@@ -11,7 +11,11 @@ app.config['JSON_SORT_KEYS'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
-cors = CORS(app, origins=['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'], allow_headers=['*'])
+cors = CORS(app, origins=['https://chop-that-veg.netlify.app/',
+                          'http://localhost:5173',
+                          'http://localhost:5174',
+                          'http://localhost:5175'],
+            allow_headers=['*'])
 
 
 welcome_msg = "Welcome to the Chop That Veg API!"
