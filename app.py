@@ -5,13 +5,14 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://kyle:password@localhost:5432/veg_api_db"
 app.config['JSON_SORT_KEYS'] = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
 cors = CORS(app, origins=['https://chop-that-veg.netlify.app',
+                          'http://localhost:5000',
                           'http://localhost:5173',
                           'http://localhost:5174',
                           'http://localhost:5175',
@@ -105,6 +106,9 @@ def delete_vegetable_by_id(veg_id):
 # Define a database model
 class Vegetable(db.Model):
     """A class for managing vegetable entries in the API."""
+
+    __tablename__ = "veggies"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(100), nullable=True)
@@ -129,4 +133,6 @@ class VegetableSchema(ma.SQLAlchemySchema):
 
 
 vegetable_schema = VegetableSchema()
+
+db.create_all()
 
